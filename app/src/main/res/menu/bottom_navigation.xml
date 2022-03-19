@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/menu_bottom_korean"
+        android:title="한식"
+        android:icon="@drawable/ic_menu_bottom_korean"/>
+
+    <item android:id="@+id/menu_bottom_chinese"
+        android:title="중식"
+        android:icon="@drawable/ic_menu_bottom_chinese"/>
+
+    <item android:id="@+id/menu_bottom_japanese"
+        android:title="일식, 경양식"
+        android:icon="@drawable/ic_menu_bottom_japanese"/>
+
+    <item android:id="@+id/menu_bottom_others"
+        android:title="기타(패스트푸드 등)"
+        android:icon="@drawable/ic_baseline_restaurant_24"/>
+
+</menu>
