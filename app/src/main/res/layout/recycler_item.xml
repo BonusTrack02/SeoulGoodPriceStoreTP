@@ -23,9 +23,13 @@
             android:id="@+id/recycler_text_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:layout_marginBottom="4dp"
+            android:layout_marginLeft="8dp"
             android:textSize="20sp"
             android:layout_toRightOf="@id/recycler_img_shop"
+            android:fontFamily="@font/seoulhangangb"
+            android:textColor="@color/black"
             android:text="업소명"/>
 
         <TextView
@@ -33,6 +37,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
+            android:layout_marginLeft="8dp"
+            android:fontFamily="@font/seoulhangangm"
             android:layout_toRightOf="@id/recycler_img_shop"
             android:layout_below="@id/recycler_text_title"
             android:text="주소"/>
@@ -42,6 +48,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
+            android:layout_marginLeft="8dp"
+            android:fontFamily="@font/seoulhangangm"
             android:layout_toRightOf="@id/recycler_img_shop"
             android:layout_below="@id/recycler_text_addr"
             android:text="전화번호"/>

@@ -7,6 +7,11 @@
         <entry key="app/src/main/res/drawable/ic_koreanfoodicon.xml" value="0.168" />
         <entry key="app/src/main/res/drawable/ic_menu_bottom_chinese.xml" value="0.168" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2833333333333333" />
+        <entry key="app/src/main/res/layout/fragment_chinese.xml" value="0.29739583333333336" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.2833333333333333" />
+        <entry key="app/src/main/res/layout/fragment_japanese.xml" value="0.29739583333333336" />
+        <entry key="app/src/main/res/layout/fragment_korean.xml" value="0.29739583333333336" />
+        <entry key="app/src/main/res/layout/fragment_others.xml" value="0.517578125" />
         <entry key="app/src/main/res/layout/recycler_item.xml" value="0.27037037037037037" />
         <entry key="app/src/main/res/menu/bottom_navigation.xml" value="0.2828125" />
       </map>

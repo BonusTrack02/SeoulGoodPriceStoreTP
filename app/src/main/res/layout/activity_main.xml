@@ -8,25 +8,11 @@
     tools:context=".MainActivity">
 
     <RelativeLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="8dp"
         android:layout_weight="1">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            android:orientation="vertical"
-            android:padding="8dp"/>
-
-        <ProgressBar
-            android:id="@+id/progressbar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:visibility="gone"/>
 
     </RelativeLayout>
 
@@ -36,6 +22,8 @@
         android:layout_height="wrap_content"
         app:menu="@menu/bottom_navigation"
         app:itemIconSize="24dp"
+        app:itemIconTint="@color/bottom_navigation_item"
+        app:itemTextColor="@color/bottom_navigation_item"
         app:labelVisibilityMode="labeled"/>
 
 </LinearLayout>
