@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -46,6 +47,21 @@ public class ChineseFragment extends Fragment {
         loadApiData();
 
         recyclerView.setAdapter(adapter);
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+
+                if (!recyclerView.canScrollVertically(1) && newState == RecyclerView.SCROLL_STATE_SETTLING) {
+                    Toast.makeText(getActivity(), "Last index", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+            }
+        });
     }
 
     void loadApiData() {
@@ -94,6 +110,9 @@ public class ChineseFragment extends Fragment {
                                 } else if (startTag.equals("SH_ADDR")) {
                                     parser.next();
                                     if (item != null) item.address = parser.getText();
+                                } else if (startTag.equals("SH_PRIDE")) {
+                                    parser.next();
+                                    if (item != null) item.pride = parser.getText();
                                 } else if (startTag.equals("SH_PHONE")) {
                                     parser.next();
                                     if (item != null) item.phone = parser.getText();

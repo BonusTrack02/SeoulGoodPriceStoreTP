@@ -1,6 +1,7 @@
 package com.bonustrack02.tp08goodprice;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -61,6 +62,20 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Holder
             recyclerTextTitle = itemView.findViewById(R.id.recycler_text_title);
             recyclerTextAddr = itemView.findViewById(R.id.recycler_text_addr);
             recyclerTextTel = itemView.findViewById(R.id.recycler_text_tel);
+
+            itemView.setOnClickListener(view -> {
+                int position = getAdapterPosition();
+                Item item = items.get(position);
+
+                Intent intent = new Intent(context, DetailActivity.class);
+                intent.putExtra("img", item.imgShop);
+                intent.putExtra("name", item.name);
+                intent.putExtra("addr", item.address);
+                intent.putExtra("phone", item.phone);
+                intent.putExtra("pride", item.pride);
+
+                context.startActivity(intent);
+            });
         }
     }
 }

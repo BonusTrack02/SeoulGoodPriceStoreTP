@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">서울시 착한가격 식당찾기</string>
-<!-- TODO: Remove or change this placeholder text -->
+    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

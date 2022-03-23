@@ -6,6 +6,7 @@
         <entry key="app/src/main/res/drawable/ic_baseline_restaurant_24.xml" value="0.168" />
         <entry key="app/src/main/res/drawable/ic_koreanfoodicon.xml" value="0.168" />
         <entry key="app/src/main/res/drawable/ic_menu_bottom_chinese.xml" value="0.168" />
+        <entry key="app/src/main/res/layout/activity_detail.xml" value="0.29739583333333336" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2833333333333333" />
         <entry key="app/src/main/res/layout/fragment_chinese.xml" value="0.29739583333333336" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.2833333333333333" />

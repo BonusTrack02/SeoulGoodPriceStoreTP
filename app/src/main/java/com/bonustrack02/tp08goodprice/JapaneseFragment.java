@@ -94,6 +94,9 @@ public class JapaneseFragment extends Fragment {
                                 } else if (startTag.equals("SH_ADDR")) {
                                     parser.next();
                                     if (item != null) item.address = parser.getText();
+                                } else if (startTag.equals("SH_PRIDE")) {
+                                    parser.next();
+                                    if (item != null) item.pride = parser.getText();
                                 } else if (startTag.equals("SH_PHONE")) {
                                     parser.next();
                                     if (item != null) item.phone = parser.getText();

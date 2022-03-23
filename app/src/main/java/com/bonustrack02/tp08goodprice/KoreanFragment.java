@@ -79,6 +79,7 @@ public class KoreanFragment extends Fragment {
                                     @Override
                                     public void run() {
                                         progressBar.setVisibility(View.VISIBLE);
+                                        Log.i("bar", "progressbar!");
                                     }
                                 });
                                 break;
@@ -94,6 +95,9 @@ public class KoreanFragment extends Fragment {
                                 } else if (startTag.equals("SH_ADDR")) {
                                     parser.next();
                                     if (item != null) item.address = parser.getText();
+                                } else if (startTag.equals("SH_PRIDE")) {
+                                    parser.next();
+                                    if (item != null) item.pride = parser.getText();
                                 } else if (startTag.equals("SH_PHONE")) {
                                     parser.next();
                                     if (item != null) item.phone = parser.getText();
