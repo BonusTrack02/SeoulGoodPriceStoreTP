@@ -33,8 +33,6 @@ public class MainActivity extends AppCompatActivity {
 
     ArrayList<Item> items = new ArrayList<>();
 
-    RecyclerView recyclerView;
-    RecyclerAdapter adapter;
     BottomNavigationView bottomNavigationView;
     FragmentManager fragmentManager;
     ArrayList<Fragment> fragments = new ArrayList<>();
@@ -98,95 +96,5 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-    }
-
-    void loadApiData() {
-        Thread thread = new Thread() {
-
-            int startIndex = 1, endIndex = 50, dirCode = 001;
-
-            String apiAddress = "http://openapi.seoul.go.kr:8088/"
-                    + apiKey + "/xml/ListPriceModelStoreService/"
-                    + startIndex+ "/" + endIndex + "/" + dirCode + "/";
-
-            ProgressBar progressBar = findViewById(R.id.progressbar);
-
-            @Override
-            public void run() {
-                try {
-                    URL url = new URL(apiAddress);
-
-                    InputStream inputStream = url.openStream();
-                    InputStreamReader reader = new InputStreamReader(inputStream);
-
-                    XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
-                    XmlPullParser parser = factory.newPullParser();
-                    parser.setInput(reader);
-
-                    int eventType = parser.getEventType();
-
-                    Item item = null;
-
-                    while (eventType != XmlPullParser.END_DOCUMENT) {
-                        switch (eventType) {
-                            case XmlPullParser.START_DOCUMENT:
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        progressBar.setVisibility(View.VISIBLE);
-                                    }
-                                });
-                                break;
-
-                            case XmlPullParser.START_TAG:
-                                String startTag = parser.getName();
-                                if (startTag.equals("row")) {
-                                    item = new Item();
-                                    Log.i("Tag", "row");
-                                } else if (startTag.equals("SH_NAME")) {
-                                    parser.next();
-                                    if (item != null) item.name = parser.getText();
-                                } else if (startTag.equals("SH_ADDR")) {
-                                    parser.next();
-                                    if (item != null) item.address = parser.getText();
-                                } else if (startTag.equals("SH_PHONE")) {
-                                    parser.next();
-                                    if (item != null) item.phone = parser.getText();
-                                } else if (startTag.equals("SH_PHOTO")) {
-                                    parser.next();
-                                    if (item != null) item.imgShop = parser.getText();
-                                }
-                                break;
-
-                            case XmlPullParser.END_TAG:
-                                String endTag = parser.getName();
-                                if (endTag.equals("row")) if (item != null) items.add(item);
-                                break;
-
-                            case XmlPullParser.TEXT:
-                                break;
-                        }
-                        eventType = parser.next();
-                    }
-
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            adapter.notifyDataSetChanged();
-                            Log.i("Tag", "" + items.size());
-                            progressBar.setVisibility(View.GONE);
-                        }
-                    });
-
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (XmlPullParserException e) {
-                    e.printStackTrace();
-                }
-            }
-        };
-        thread.start();
     }
 }

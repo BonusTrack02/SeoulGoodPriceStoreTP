@@ -18,7 +18,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="가게 이름"
-        android:textSize="24sp"
+        android:textSize="20sp"
         android:layout_marginTop="16dp"
         android:layout_marginLeft="8dp"
         android:layout_toRightOf="@id/detail_img"
@@ -29,34 +29,48 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="주소"
-        android:textSize="20sp"
-        android:layout_marginTop="8dp"
+        android:textSize="18sp"
+        android:layout_marginTop="16dp"
         android:layout_marginLeft="8dp"
         android:layout_toRightOf="@id/detail_img"
         android:layout_below="@id/detail_text_name"
         android:fontFamily="@font/seoulhangangm"/>
 
     <TextView
+        android:id="@+id/detail_text_map"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="지도 보기"
+        android:textSize="18sp"
+        android:fontFamily="@font/seoulhangangm"
+        android:layout_below="@id/detail_text_addr"
+        android:layout_toRightOf="@id/detail_img"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="8dp"/>
+
+
+    <TextView
         android:id="@+id/detail_text_phone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="전화번호"
-        android:textSize="20sp"
-        android:layout_marginTop="8dp"
+        android:layout_below="@id/detail_text_map"
         android:layout_marginLeft="8dp"
+        android:layout_marginTop="16dp"
         android:layout_toRightOf="@id/detail_img"
-        android:layout_below="@id/detail_text_addr"
-        android:fontFamily="@font/seoulhangangm"/>
+        android:fontFamily="@font/seoulhangangm"
+        android:text="전화번호"
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/detail_text_pride"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="설명"
-        android:textSize="20sp"
         android:layout_below="@id/detail_img"
-        android:layout_marginTop="8dp"
         android:layout_centerHorizontal="true"
-        android:fontFamily="@font/seoulhangangm"/>
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/seoulhangangm"
+        android:gravity="center_horizontal"
+        android:text="설명"
+        android:textSize="18sp" />
 
 </RelativeLayout>

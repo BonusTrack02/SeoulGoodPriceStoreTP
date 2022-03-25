@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bonustrack02.tp08goodprice.databinding.FragmentJapaneseBinding;
 import com.google.android.material.snackbar.Snackbar;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -29,11 +30,10 @@ import java.util.ArrayList;
 
 public class JapaneseFragment extends Fragment {
 
+    FragmentJapaneseBinding binding;
+
     ArrayList<Item> items = new ArrayList<>();
-    RecyclerView recyclerView;
     RecyclerAdapter adapter;
-    ProgressBar progressBar;
-    CoordinatorLayout snackBarContainer;
     String apiKey = "4e4c586954776c7338365056587546";
     int startIndex = 1, endIndex = 30;
     int listTotal;
@@ -41,20 +41,18 @@ public class JapaneseFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_japanese, container, false);
+        binding = FragmentJapaneseBinding.inflate(inflater, container, false);
+        return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        progressBar = view.findViewById(R.id.progressbar);
         adapter = new RecyclerAdapter(getActivity(), items);
-        recyclerView = view.findViewById(R.id.recycler);
-        snackBarContainer = view.findViewById(R.id.snackbar_container);
 
         loadApiData(startIndex, endIndex);
 
-        recyclerView.setAdapter(adapter);
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        binding.recycler.setAdapter(adapter);
+        binding.recycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
@@ -63,7 +61,7 @@ public class JapaneseFragment extends Fragment {
                 int totalItemSize = layoutManager.getItemCount();
                 if (layoutManager.findLastCompletelyVisibleItemPosition() >= totalItemSize - 1) {
                     loadApiData(startIndex += 30, endIndex += 30);
-                    if (listTotal == totalItemSize) Snackbar.make(getActivity(), snackBarContainer, "마지막 리스트입니다.", Snackbar.LENGTH_SHORT).show();
+                    if (listTotal == totalItemSize) Snackbar.make(getActivity(), binding.snackbarContainer, "마지막 리스트입니다.", Snackbar.LENGTH_SHORT).show();
                 }
             }
         });
@@ -99,7 +97,7 @@ public class JapaneseFragment extends Fragment {
                                 getActivity().runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        progressBar.setVisibility(View.VISIBLE);
+                                        binding.progressbar.setVisibility(View.VISIBLE);
                                     }
                                 });
                                 break;
@@ -146,7 +144,7 @@ public class JapaneseFragment extends Fragment {
                         public void run() {
                             if (adapter != null) adapter.notifyDataSetChanged();
                             Log.i("Tag", "" + items.size());
-                            progressBar.setVisibility(View.GONE);
+                            binding.progressbar.setVisibility(View.GONE);
                         }
                     });
 
