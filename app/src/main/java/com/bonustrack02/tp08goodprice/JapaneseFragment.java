@@ -9,8 +9,12 @@ import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -29,7 +33,10 @@ public class JapaneseFragment extends Fragment {
     RecyclerView recyclerView;
     RecyclerAdapter adapter;
     ProgressBar progressBar;
+    CoordinatorLayout snackBarContainer;
     String apiKey = "4e4c586954776c7338365056587546";
+    int startIndex = 1, endIndex = 30;
+    int listTotal;
 
     @Nullable
     @Override
@@ -42,18 +49,32 @@ public class JapaneseFragment extends Fragment {
         progressBar = view.findViewById(R.id.progressbar);
         adapter = new RecyclerAdapter(getActivity(), items);
         recyclerView = view.findViewById(R.id.recycler);
+        snackBarContainer = view.findViewById(R.id.snackbar_container);
 
-        loadApiData();
+        loadApiData(startIndex, endIndex);
 
         recyclerView.setAdapter(adapter);
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+                int totalItemSize = layoutManager.getItemCount();
+                if (layoutManager.findLastCompletelyVisibleItemPosition() >= totalItemSize - 1) {
+                    loadApiData(startIndex += 30, endIndex += 30);
+                    if (listTotal == totalItemSize) Snackbar.make(getActivity(), snackBarContainer, "마지막 리스트입니다.", Snackbar.LENGTH_SHORT).show();
+                }
+            }
+        });
+
     }
 
-    void loadApiData() {
+    void loadApiData(int startIndex, int endIndex) {
         Thread thread = new Thread() {
 
             @Override
             public void run() {
-                int startIndex = 1, endIndex = 30;
 
                 String apiAddress = "http://openapi.seoul.go.kr:8088/"
                         + apiKey + "/xml/ListPriceModelStoreService/"
@@ -88,6 +109,9 @@ public class JapaneseFragment extends Fragment {
                                 if (startTag.equals("row")) {
                                     item = new Item();
                                     Log.i("Tag", "row");
+                                } else if (startTag.equals("list_total_count")) {
+                                    parser.next();
+                                    listTotal = Integer.parseInt(parser.getText());
                                 } else if (startTag.equals("SH_NAME")) {
                                     parser.next();
                                     if (item != null) item.name = parser.getText();
