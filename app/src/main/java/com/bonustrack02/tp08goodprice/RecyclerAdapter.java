@@ -6,13 +6,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.NetworkImageView;
 
 import java.util.ArrayList;
 
@@ -37,7 +37,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Holder
     public void onBindViewHolder(@NonNull Holder holder, int position) {
         Item item = items.get(position);
 
-        Glide.with(context).load(item.imgShop).into(holder.recyclerImgShop);
+        ImageLoader imageLoader = ImageLoaderSingleTone.getImageLoader(context);
+        holder.recyclerImgShop.setImageUrl(item.imgShop, imageLoader);
+
         holder.recyclerTextTitle.setText(item.name);
         holder.recyclerTextAddr.setText(item.address);
         holder.recyclerTextTel.setText(item.phone);
@@ -52,7 +54,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Holder
 
     class Holder extends RecyclerView.ViewHolder {
 
-        ImageView recyclerImgShop;
+        NetworkImageView recyclerImgShop;
         TextView recyclerTextTitle, recyclerTextAddr, recyclerTextTel;
 
         public Holder(@NonNull View itemView) {

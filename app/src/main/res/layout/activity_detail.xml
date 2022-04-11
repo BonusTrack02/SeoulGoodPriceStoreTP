@@ -7,7 +7,7 @@
     android:padding="8dp"
     tools:context=".DetailActivity">
 
-    <ImageView
+    <com.android.volley.toolbox.NetworkImageView
         android:id="@+id/detail_img"
         android:layout_width="180dp"
         android:layout_height="180dp"
@@ -18,7 +18,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="가게 이름"
-        android:textSize="20sp"
+        android:textSize="20dp"
         android:layout_marginTop="16dp"
         android:layout_marginLeft="8dp"
         android:layout_toRightOf="@id/detail_img"
@@ -29,48 +29,65 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="주소"
-        android:textSize="18sp"
+        android:textSize="18dp"
         android:layout_marginTop="16dp"
         android:layout_marginLeft="8dp"
         android:layout_toRightOf="@id/detail_img"
         android:layout_below="@id/detail_text_name"
         android:fontFamily="@font/seoulhangangm"/>
 
-    <TextView
-        android:id="@+id/detail_text_map"
+    <Button
+        android:id="@+id/detail_btn_map"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="지도 보기"
-        android:textSize="18sp"
-        android:fontFamily="@font/seoulhangangm"
         android:layout_below="@id/detail_text_addr"
         android:layout_toRightOf="@id/detail_img"
-        android:layout_marginTop="16dp"
-        android:layout_marginLeft="8dp"/>
+        android:layout_marginLeft="8dp"
+        android:fontFamily="@font/seoulhangangm"
+        android:backgroundTint="@color/green_1"
+        android:textColor="@color/black"
+        android:textSize="14dp"
+        android:text="카카오맵으로 이동"
+        android:drawableLeft="@drawable/ic_baseline_map_24"/>
 
-
-    <TextView
-        android:id="@+id/detail_text_phone"
+    <Button
+        android:id="@+id/detail_btn_phone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/detail_text_map"
+        android:layout_below="@id/detail_btn_map"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:layout_toRightOf="@id/detail_img"
+        android:backgroundTint="@color/green_1"
         android:fontFamily="@font/seoulhangangm"
+        android:gravity="center"
         android:text="전화번호"
-        android:textSize="18sp" />
+        android:textColor="@color/black"
+        android:textSize="14dp"
+        android:drawableLeft="@drawable/ic_baseline_phone_24"/>
 
     <TextView
         android:id="@+id/detail_text_pride"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/detail_img"
+        android:layout_below="@id/detail_btn_phone"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:fontFamily="@font/seoulhangangm"
         android:gravity="center_horizontal"
         android:text="설명"
-        android:textSize="18sp" />
+        android:textSize="18dp" />
+
+    <RelativeLayout
+        android:id="@+id/container_map"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:layout_below="@id/detail_text_pride"/>
+
+    <com.kakao.adfit.ads.ba.BannerAdView
+        android:id="@+id/adview"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_below="@id/container_map"/>
 
 </RelativeLayout>

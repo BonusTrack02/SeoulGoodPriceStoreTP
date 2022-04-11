@@ -12,5 +12,5 @@ public class Item {
     public Item() {
     }
 
-    String imgShop, name, address, phone, pride;
+    String imgShop="", name="", address="", phone="", pride="";
 }

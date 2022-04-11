@@ -1,7 +1,9 @@
 package com.bonustrack02.tp08goodprice;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -11,10 +13,15 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
+import com.bonustrack02.tp08goodprice.databinding.ActivityMainBinding;
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
@@ -28,21 +35,21 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
-
-    ArrayList<Item> items = new ArrayList<>();
 
     BottomNavigationView bottomNavigationView;
     FragmentManager fragmentManager;
     ArrayList<Fragment> fragments = new ArrayList<>();
 
-    String apiKey = "4e4c586954776c7338365056587546";
+    ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         fragmentManager = getSupportFragmentManager();
 
@@ -96,5 +103,21 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+    }
+
+    boolean wasPressed = false;
+    long lastTime;
+
+    @Override
+    public void onBackPressed() {
+        if (!wasPressed) {
+            Toast.makeText(this, "한 번 더 누르면 종료됩니다", Toast.LENGTH_SHORT).show();
+            wasPressed = true;
+            lastTime = new Date().getTime();
+        } else {
+            long nowTime = new Date().getTime();
+            if (nowTime - lastTime > 3000) wasPressed = false;
+            else super.onBackPressed();
+        }
     }
 }

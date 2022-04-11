@@ -1,5 +1,6 @@
 package com.bonustrack02.tp08goodprice;
 
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;

@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="Gradle: com.kakao.adfit:ads-base:3.11.11@aar">
+    <ANNOTATIONS>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/d2f87e03d81d009b3c9739c7747799cf/transformed/ads-base-3.11.11/annotations.zip!/" />
+    </ANNOTATIONS>
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/d2f87e03d81d009b3c9739c7747799cf/transformed/ads-base-3.11.11/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/d2f87e03d81d009b3c9739c7747799cf/transformed/ads-base-3.11.11/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/d2f87e03d81d009b3c9739c7747799cf/transformed/ads-base-3.11.11/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
