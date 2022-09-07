@@ -2,9 +2,11 @@
   <library name="Gradle: androidx.test:core:1.4.0@aar">
     <CLASSES>
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/416ccb36af276c3725d1092bae1d4f79/transformed/core-1.4.0/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/6e0810f4ef7f9ddd8ec5fbf6c9d03cbb/transformed/core-1.4.0/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/6e0810f4ef7f9ddd8ec5fbf6c9d03cbb/transformed/core-1.4.0/AndroidManifest.xml" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/6e0810f4ef7f9ddd8ec5fbf6c9d03cbb/transformed/core-1.4.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/5d59e2c12f3939567761e5bd41945846/transformed/core-1.4.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/295f18fe161245a5e3bb5e1f5ae11c70/transformed/core-1.4.0/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/295f18fe161245a5e3bb5e1f5ae11c70/transformed/core-1.4.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/295f18fe161245a5e3bb5e1f5ae11c70/transformed/core-1.4.0/res" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.test/core/1.4.0/96b4d161def059d92989a352500d05d215c33d5e/core-1.4.0-javadoc.jar!/" />
