@@ -4,6 +4,9 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/TP08GoodPrice.iml" filepath="$PROJECT_DIR$/.idea/modules/TP08GoodPrice.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/TP08GoodPrice.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/TP08GoodPrice.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/TP08GoodPrice.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/TP08GoodPrice.app.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/TP08GoodPrice.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/TP08GoodPrice.app.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/TP08GoodPrice.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/TP08GoodPrice.app.unitTest.iml" />
     </modules>
   </component>
 </project>
