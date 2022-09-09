@@ -6,7 +6,7 @@
     app:cardCornerRadius="4dp"
     android:layout_margin="4dp"
     app:cardElevation="4dp"
-    app:cardBackgroundColor="@color/green_1">
+    app:cardBackgroundColor="?colorPrimaryContainer">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -29,7 +29,7 @@
             android:textSize="20sp"
             android:layout_toRightOf="@id/recycler_img_shop"
             android:fontFamily="@font/seoulhangangb"
-            android:textColor="@color/black"
+            android:textColor="?colorOnSurface"
             android:text="업소명"/>
 
         <TextView

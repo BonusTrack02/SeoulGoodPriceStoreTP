@@ -128,7 +128,7 @@ public class DetailActivity extends AppCompatActivity {
             startActivity(callIntent);
         });
 
-        String pride = "자랑거리\n\n" + intent.getStringExtra("pride");
+        String pride = intent.getStringExtra("pride");
         binding.detailTextPride.setText(pride);
 
         setPoint();

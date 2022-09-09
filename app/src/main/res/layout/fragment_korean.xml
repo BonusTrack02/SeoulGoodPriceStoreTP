@@ -8,13 +8,13 @@
         android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/CustomMaterialTheme">
+        android:theme="@style/AppTheme">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:titleTextColor="@color/white"
+            app:titleTextColor="?colorOnSurface"
             android:theme="@style/ToolbarStyle">
 
         </com.google.android.material.appbar.MaterialToolbar>
@@ -30,7 +30,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="8dp"
                 android:text="지역 선택"
-                android:textColor="@color/white"/>
+                android:textColor="?colorOnSurface"/>
 
             <androidx.appcompat.widget.AppCompatSpinner
                 android:id="@+id/spinner"
