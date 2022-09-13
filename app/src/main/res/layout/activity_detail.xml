@@ -44,7 +44,7 @@
         android:layout_centerHorizontal="true"
         android:fontFamily="@font/seoulhangangm"
         android:backgroundTint="?colorPrimaryContainer"
-        android:textColor="?colorOnSurface"
+        android:textColor="?colorOnPrimaryContainer"
         android:textSize="14dp"
         android:text="카카오맵으로 이동"
         android:drawableLeft="@drawable/ic_baseline_map_24"/>
@@ -60,7 +60,7 @@
         android:fontFamily="@font/seoulhangangm"
         android:gravity="center"
         android:text="전화번호"
-        android:textColor="?colorOnSurface"
+        android:textColor="?colorOnPrimaryContainer"
         android:textSize="14dp"
         android:drawableLeft="@drawable/ic_baseline_phone_24"/>
 

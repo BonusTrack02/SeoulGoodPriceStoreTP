@@ -29,7 +29,7 @@
             android:textSize="20sp"
             android:layout_toRightOf="@id/recycler_img_shop"
             android:fontFamily="@font/seoulhangangb"
-            android:textColor="?colorOnSurface"
+            android:textColor="?colorOnPrimaryContainer"
             android:text="업소명"/>
 
         <TextView
@@ -41,7 +41,8 @@
             android:fontFamily="@font/seoulhangangm"
             android:layout_toRightOf="@id/recycler_img_shop"
             android:layout_below="@id/recycler_text_title"
-            android:text="주소"/>
+            android:text="주소"
+            android:textColor="?colorOnPrimaryContainer"/>
 
         <TextView
             android:id="@+id/recycler_text_tel"
@@ -52,7 +53,8 @@
             android:fontFamily="@font/seoulhangangm"
             android:layout_toRightOf="@id/recycler_img_shop"
             android:layout_below="@id/recycler_text_addr"
-            android:text="전화번호"/>
+            android:text="전화번호"
+            android:textColor="?colorOnPrimaryContainer"/>
 
     </RelativeLayout>
 
