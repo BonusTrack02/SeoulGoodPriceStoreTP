@@ -22,6 +22,7 @@ import java.util.*
 
 class DetailActivity : AppCompatActivity() {
     val binding: ActivityDetailBinding by lazy { ActivityDetailBinding.inflate(layoutInflater) }
+    val clientId = BuildConfig.SMALLBANNERCLIENTID
     var mapView: MapView? = null
     var point: MapPoint? = null
     var latitude = 0.0
@@ -36,8 +37,7 @@ class DetailActivity : AppCompatActivity() {
             requestPermissions(permissions, 14)
         }
 
-        //TODO: Set client id
-        binding.adview.setClientId("")
+        binding.adview.setClientId(clientId)
         binding.adview.setAdListener(object : AdListener {
             override fun onAdLoaded() {}
             override fun onAdFailed(i: Int) {
@@ -52,14 +52,14 @@ class DetailActivity : AppCompatActivity() {
         binding.containerMap.addView(mapView)
         val intent = intent
         val img = intent.getStringExtra("img")
-        val imageLoader = ImageLoaderSingleTone.getImageLoader(this)
+        val imageLoader = ImageLoaderSingleTon.getImageLoader(this)
         binding.detailImg.setImageUrl(img, imageLoader)
         val name = intent.getStringExtra("name")
         binding.detailTextName.text = name
         val addr = intent.getStringExtra("addr")
         binding.detailTextAddr.text = addr
         binding.detailTextAddr.setOnLongClickListener {
-            val clipData = ClipData.newPlainText("주소", binding!!.detailTextAddr.text.toString())
+            val clipData = ClipData.newPlainText("주소", binding.detailTextAddr.text.toString())
             clipboardManager.setPrimaryClip(clipData)
             Toast.makeText(this@DetailActivity, "주소가 복사되었습니다", Toast.LENGTH_SHORT).show()
             false
