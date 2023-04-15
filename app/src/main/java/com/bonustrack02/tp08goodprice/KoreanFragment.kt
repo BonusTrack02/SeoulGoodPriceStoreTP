@@ -8,20 +8,19 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.OnScrollListener
-import com.bonustrack02.tp08goodprice.databinding.FragmentOthersBinding
+import com.bonustrack02.tp08goodprice.databinding.FragmentKoreanBinding
 import com.google.android.material.snackbar.Snackbar
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class OthersFragment: Fragment() {
-    val binding: FragmentOthersBinding by lazy { FragmentOthersBinding.inflate(layoutInflater) }
-    var items = mutableListOf<Shop>()
+class KoreanFragment: Fragment() {
+    private val binding: FragmentKoreanBinding by lazy { FragmentKoreanBinding.inflate(layoutInflater) }
+    private val items = mutableListOf<Shop>()
     private val apiKey = BuildConfig.APIKEYSEOUL
-    var startIndex = 1
-    var endIndex = 30
-    var totalCount = 0
+    private var startIndex = 1
+    private var endIndex = 30
+    private var totalCount = 0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,21 +31,20 @@ class OthersFragment: Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        binding.recycler.adapter = RecyclerAdapter(requireActivity(), items)
+        binding.recycler.adapter = RecyclerAdapter(requireContext(), items)
         getStoreListUsingRetrofit(startIndex, endIndex)
         binding.progressbar.visibility = View.VISIBLE
 
-        binding.recycler.addOnScrollListener(object : OnScrollListener() {
+        binding.recycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 val lastItemPosition = (recyclerView.layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
                 val totalItemCount = recyclerView.adapter?.itemCount?.minus(1)
 
                 if (lastItemPosition == totalItemCount) {
-                    this@OthersFragment.startIndex += 30
-                    this@OthersFragment.endIndex += 30
-                    getStoreListUsingRetrofit(this@OthersFragment.startIndex, this@OthersFragment.endIndex)
+                    this@KoreanFragment.startIndex += 30
+                    this@KoreanFragment.endIndex += 30
+                    getStoreListUsingRetrofit(this@KoreanFragment.startIndex, this@KoreanFragment.endIndex)
 
                     if (totalCount == items.size) Snackbar.make(context!!, binding.snackbarContainer, "마지막 리스트입니다.", Snackbar.LENGTH_SHORT).show()
                 }
@@ -56,7 +54,7 @@ class OthersFragment: Fragment() {
 
     private fun getStoreListUsingRetrofit(startIndex: Int, endIndex: Int) {
         val retrofitService = RetrofitHelper.getInstance().create(RetrofitService::class.java)
-        val call = retrofitService.getStoreJson(apiKey, startIndex, endIndex, "004")
+        val call = retrofitService.getStoreJson(apiKey, startIndex, endIndex, "001")
         call.enqueue(object : Callback<RetrofitResponse> {
             override fun onResponse(
                 call: Call<RetrofitResponse>,

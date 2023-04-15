@@ -34,8 +34,8 @@ class ChineseFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.recycler.adapter = RecyclerAdapter(requireContext(), items)
-
         getStoreListUsingRetrofit(startIndex, endIndex)
+        binding.progressbar.visibility = View.VISIBLE
 
         binding.recycler.addOnScrollListener(object : OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -72,6 +72,7 @@ class ChineseFragment: Fragment() {
                 binding.recycler.adapter?.notifyDataSetChanged()
                 Log.d("recycler size", "${items.size}")
                 totalCount = response.body()!!.responseItem.totalCount
+                binding.progressbar.visibility = View.GONE
             }
 
             override fun onFailure(

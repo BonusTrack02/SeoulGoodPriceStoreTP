@@ -36,7 +36,7 @@ class RecyclerAdapter(val context: Context, var items: MutableList<Shop>): Adapt
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = items[position]
-        val imageLoader = ImageLoaderSingleTone.getImageLoader(context)
+        val imageLoader = ImageLoaderSingleTon.getImageLoader(context)
         holder.binding.recyclerImgShop.setImageUrl(item.shopImage, imageLoader)
         holder.binding.recyclerTextTitle.text = item.shopName
         holder.binding.recyclerTextAddr.text = item.shopAddress

@@ -22,7 +22,7 @@ import java.util.*
 
 class DetailActivity : AppCompatActivity() {
     val binding: ActivityDetailBinding by lazy { ActivityDetailBinding.inflate(layoutInflater) }
-    val clientId = BuildConfig.SMALLBANNERCLIENTID
+    private val clientId = BuildConfig.SMALLBANNERCLIENTID
     var mapView: MapView? = null
     var point: MapPoint? = null
     var latitude = 0.0
@@ -68,7 +68,12 @@ class DetailActivity : AppCompatActivity() {
             val uri = Uri.parse("kakaomap://look?p=$latitude,$longitude")
             val mapIntent = Intent(Intent.ACTION_VIEW)
             mapIntent.data = uri
-            startActivity(mapIntent)
+            try {
+                startActivity(mapIntent)
+            } catch (e: Exception) {
+                e.printStackTrace()
+                Toast.makeText(this, R.string.map_not_installed, Toast.LENGTH_SHORT).show()
+            }
         }
         var phone = intent.getStringExtra("phone")
         phone = phone!!.replace(" ", "")

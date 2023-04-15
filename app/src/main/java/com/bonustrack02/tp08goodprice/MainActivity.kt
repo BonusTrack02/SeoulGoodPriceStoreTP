@@ -37,21 +37,21 @@ class MainActivity: AppCompatActivity() {
                 R.id.menu_bottom_chinese -> {
                     if (fragments[1] == null) {
                         fragments[1] = ChineseFragment()
-                        transaction.add(R.id.container, fragments[1]!!)
+                        transaction.add(binding.container.id, fragments[1]!!)
                     }
                     transaction.show(fragments[1]!!)
                 }
                 R.id.menu_bottom_japanese -> {
                     if (fragments[2] == null) {
                         fragments[2] = JapaneseFragment()
-                        transaction.add(R.id.container, fragments[2]!!)
+                        transaction.add(binding.container.id, fragments[2]!!)
                     }
                     transaction.show(fragments[2]!!)
                 }
                 R.id.menu_bottom_others -> {
                     if (fragments[3] == null) {
                         fragments[3] = OthersFragment()
-                        transaction.add(R.id.container, fragments[3]!!)
+                        transaction.add(binding.container.id, fragments[3]!!)
                     }
                     transaction.show(fragments[3]!!)
                 }
