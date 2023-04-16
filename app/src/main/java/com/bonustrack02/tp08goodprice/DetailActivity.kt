@@ -61,8 +61,8 @@ class DetailActivity : AppCompatActivity() {
         binding.detailTextAddr.setOnLongClickListener {
             val clipData = ClipData.newPlainText("주소", binding.detailTextAddr.text.toString())
             clipboardManager.setPrimaryClip(clipData)
-            Toast.makeText(this@DetailActivity, "주소가 복사되었습니다", Toast.LENGTH_SHORT).show()
-            false
+            Toast.makeText(this@DetailActivity, R.string.copy_address, Toast.LENGTH_SHORT).show()
+            true
         }
         binding.detailBtnMap.setOnClickListener { view: View? ->
             val uri = Uri.parse("kakaomap://look?p=$latitude,$longitude")
