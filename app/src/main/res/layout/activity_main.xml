@@ -9,6 +9,12 @@
         android:orientation="vertical"
         tools:context=".MainActivity">
 
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:menu="@menu/option"/>
+
         <RelativeLayout
             android:id="@+id/container"
             android:layout_width="match_parent"
