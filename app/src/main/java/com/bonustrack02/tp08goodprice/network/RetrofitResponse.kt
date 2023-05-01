@@ -1,4 +1,4 @@
-package com.bonustrack02.tp08goodprice
+package com.bonustrack02.tp08goodprice.network
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
