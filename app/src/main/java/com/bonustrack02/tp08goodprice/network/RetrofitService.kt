@@ -8,9 +8,14 @@ import retrofit2.http.Path
 
 interface RetrofitService {
     @GET("/{key}/json/ListPriceModelStoreService/{startIndex}/{endIndex}/{inDutyCode}")
-    fun getStoreJson(@Path("key") key: String, @Path("startIndex") startIndex: Int, @Path("endIndex") endIndex: Int, @Path("inDutyCode") inDutyCode: String): Call<RetrofitResponse>
+    fun getStoreJson(
+        @Path("key") key: String,
+        @Path("startIndex") startIndex: Int,
+        @Path("endIndex") endIndex: Int,
+        @Path("inDutyCode") inDutyCode: String
+    ): Call<RetrofitResponse>
 
     @GET("/v2/local/search/keyword.json")
-    @Headers("Authorization ${BuildConfig.KAKAORESTAPIKEY}")
-    fun getLocationByKakaoKeyword()
+    @Headers("Authorization: KakaoAK ${BuildConfig.KAKAORESTAPIKEY}")
+    fun getLocationByKakaoKeyword(): Call<ResponseKeyword>
 }

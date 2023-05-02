@@ -30,3 +30,36 @@ data class Shop(
     @SerialName("SH_PHONE") var shopNumber: String= "", // 업소 전화번호
     @SerialName("SH_PRIDE") var shopPride: String = "", // 자랑거리
 )
+
+@Serializable
+data class ResponseKeyword(
+    @SerialName("meta") val meta: Meta,
+    @SerialName("documents") val placeList: MutableList<Place>
+)
+
+@Serializable
+data class Meta(
+    @SerialName("is_end") val isEnd: Boolean,
+    @SerialName("pageable_count") val pageCount: Int,
+    @SerialName("total_count") val totalCount: Int,
+    @SerialName("same_name") val sameName: SameName,
+)
+
+@Serializable
+data class SameName(
+    @SerialName("keyword") val keyword: String,
+    @SerialName("selected_region") val selectedRegion: String,
+)
+
+@Serializable
+data class Place(
+    @SerialName("address_name") val address: String,
+    @SerialName("category_group_name") val categoryName: String,
+    @SerialName("category_group_code") val categoryCode: String,
+    @SerialName("phone") val phone: String,
+    @SerialName("place_name") val placeName: String,
+    @SerialName("place_url") val placeUrl: String,
+    @SerialName("road_address_name") val roadAddress: String,
+    @SerialName("x") val x: String,
+    @SerialName("y") val y: String,
+)
