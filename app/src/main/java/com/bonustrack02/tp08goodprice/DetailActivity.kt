@@ -12,6 +12,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.View.INVISIBLE
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bonustrack02.tp08goodprice.databinding.ActivityDetailBinding
@@ -33,14 +34,14 @@ import java.io.IOException
 import java.util.*
 
 class DetailActivity : AppCompatActivity() {
-    val binding: ActivityDetailBinding by lazy { ActivityDetailBinding.inflate(layoutInflater) }
+    private val binding: ActivityDetailBinding by lazy { ActivityDetailBinding.inflate(layoutInflater) }
     private val clientId = BuildConfig.SMALLBANNERCLIENTID
     var mapView: MapView? = null
     var point: MapPoint? = null
     var latitude = 0.0
     var longitude = 0.0
-    val retrofit = RetrofitHelper.getInstance("https://dapi.kakao.com")
-    val retrofitService = retrofit.create(RetrofitService::class.java)
+    private val retrofit = RetrofitHelper.getInstance("https://dapi.kakao.com")
+    private val retrofitService = retrofit.create(RetrofitService::class.java)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -96,8 +97,14 @@ class DetailActivity : AppCompatActivity() {
 
         var phone = intent.getStringExtra("phone")
         phone = phone!!.replace(" ", "")
-        if (phone.contains("02-")) {
+        if (
+            phone.contains("02-")
+            || phone.contains("0507-")
+            || phone.contains("070-")
+        ) {
             binding.detailBtnPhone.text = phone
+        } else if (phone.isEmpty()) {
+            binding.detailBtnPhone.visibility = INVISIBLE
         } else {
             binding.detailBtnPhone.text = "02-$phone"
         }

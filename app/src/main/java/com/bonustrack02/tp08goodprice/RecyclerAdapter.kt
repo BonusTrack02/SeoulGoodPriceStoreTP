@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
+import androidx.recyclerview.widget.RecyclerView.INVISIBLE
 import com.bonustrack02.tp08goodprice.databinding.RecyclerItemBinding
 import com.bonustrack02.tp08goodprice.network.Shop
 
@@ -41,7 +42,8 @@ class RecyclerAdapter(val context: Context, var items: MutableList<Shop>): Adapt
         holder.binding.recyclerImgShop.setImageUrl(item.shopImage, imageLoader)
         holder.binding.recyclerTextTitle.text = item.shopName
         holder.binding.recyclerTextAddr.text = item.shopAddress
-        holder.binding.recyclerTextTel.text = item.shopNumber
+        if (item.shopNumber.isEmpty()) holder.binding.recyclerTextTel.visibility = INVISIBLE
+        else holder.binding.recyclerTextTel.text = item.shopNumber
     }
 
     override fun getItemCount(): Int = items.size
