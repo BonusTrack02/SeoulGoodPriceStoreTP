@@ -9,14 +9,26 @@ import android.location.Geocoder
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bonustrack02.tp08goodprice.databinding.ActivityDetailBinding
+import com.bonustrack02.tp08goodprice.network.ResponseKeyword
+import com.bonustrack02.tp08goodprice.network.RetrofitHelper
+import com.bonustrack02.tp08goodprice.network.RetrofitService
 import com.kakao.adfit.ads.AdListener
+import com.kakao.sdk.share.ShareClient
+import com.kakao.sdk.template.model.Content
+import com.kakao.sdk.template.model.Link
+import com.kakao.sdk.template.model.LocationTemplate
 import net.daum.mf.map.api.MapPOIItem
 import net.daum.mf.map.api.MapPoint
 import net.daum.mf.map.api.MapView
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.io.IOException
 import java.util.*
 
@@ -27,9 +39,15 @@ class DetailActivity : AppCompatActivity() {
     var point: MapPoint? = null
     var latitude = 0.0
     var longitude = 0.0
+    val retrofit = RetrofitHelper.getInstance("https://dapi.kakao.com")
+    val retrofitService = retrofit.create(RetrofitService::class.java)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val checkResult = checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)
         if (checkResult == PackageManager.PERMISSION_DENIED) {
@@ -41,12 +59,12 @@ class DetailActivity : AppCompatActivity() {
         binding.adview.setAdListener(object : AdListener {
             override fun onAdLoaded() {}
             override fun onAdFailed(i: Int) {
-                Log.i("AdView", "error : $i")
+                Log.e("AdView", "error : $i")
             }
-
             override fun onAdClicked() {}
         })
         binding.adview.loadAd()
+
         val clipboardManager = getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
         mapView = MapView(this)
         binding.containerMap.addView(mapView)
@@ -64,6 +82,7 @@ class DetailActivity : AppCompatActivity() {
             Toast.makeText(this@DetailActivity, R.string.copy_address, Toast.LENGTH_SHORT).show()
             true
         }
+
         binding.detailBtnMap.setOnClickListener { view: View? ->
             val uri = Uri.parse("kakaomap://look?p=$latitude,$longitude")
             val mapIntent = Intent(Intent.ACTION_VIEW)
@@ -71,10 +90,10 @@ class DetailActivity : AppCompatActivity() {
             try {
                 startActivity(mapIntent)
             } catch (e: Exception) {
-                e.printStackTrace()
                 Toast.makeText(this, R.string.map_not_installed, Toast.LENGTH_SHORT).show()
             }
         }
+
         var phone = intent.getStringExtra("phone")
         phone = phone!!.replace(" ", "")
         if (phone.contains("02-")) {
@@ -82,12 +101,14 @@ class DetailActivity : AppCompatActivity() {
         } else {
             binding.detailBtnPhone.text = "02-$phone"
         }
-        binding.detailBtnPhone.setOnClickListener { view: View? ->
+
+        binding.detailBtnPhone.setOnClickListener {
             val callIntent = Intent(Intent.ACTION_DIAL)
             val uri = Uri.parse("tel:" + binding.detailBtnPhone.text.toString())
             callIntent.data = uri
             startActivity(callIntent)
         }
+
         val pride = intent.getStringExtra("pride")
         binding.detailTextPride.text = pride
         setPoint()
@@ -102,6 +123,73 @@ class DetailActivity : AppCompatActivity() {
         mapView!!.addPOIItem(marker)
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.menu_share -> {
+                val call = retrofitService.getLocationByKakaoKeyword(binding.detailTextName.text.toString())
+                if (ShareClient.instance.isKakaoTalkSharingAvailable(this)) { // 카카오톡 쉐어링이 가능
+                    call.enqueue(object : Callback<ResponseKeyword> {
+                        override fun onResponse(
+                            call: Call<ResponseKeyword>,
+                            response: Response<ResponseKeyword>
+                        ) {
+                            try {
+                                if (response.body()!!.placeList[0].address.contains("서울")) {
+                                    val link = Link(
+                                        mobileWebUrl = response.body()!!.placeList[0].placeUrl
+                                    )
+                                    val content = Content(
+                                        title = response.body()!!.placeList[0].placeName,
+                                        description = response.body()!!.placeList[0].roadAddress,
+                                        imageUrl = intent.getStringExtra("img")!!,
+                                        link = link
+                                    )
+                                    val defaultTemplate = LocationTemplate(
+                                        address = response.body()!!.placeList[0].roadAddress,
+                                        addressTitle = response.body()!!.placeList[0].placeName,
+                                        content = content
+                                    )
+                                    ShareClient.instance.shareDefault(this@DetailActivity, defaultTemplate) { sharingResult, error ->
+                                        if (error != null) {
+                                            Log.e("Kakao sharing", "failed")
+                                        } else if (sharingResult != null) {
+                                            Log.d("Kakao sharing", "success")
+                                            startActivity(sharingResult.intent)
+                                        }
+                                    }
+                                }
+                            } catch (e: Exception) {
+                                Toast.makeText(
+                                    this@DetailActivity,
+                                    "카카오맵에서 장소를 찾을 수 없습니다.",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                        }
+
+                        override fun onFailure(call: Call<ResponseKeyword>, t: Throwable) {
+                            Log.e("retrofit fail", "${t.stackTrace}")
+                        }
+
+                    })
+
+                } else { // 불가능
+                    Toast.makeText(this, "카카오톡 공유를 사용할 수 없습니다.", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_detail, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return super.onSupportNavigateUp()
+    }
     override fun onResume() {
         super.onResume()
         binding.adview.resume()

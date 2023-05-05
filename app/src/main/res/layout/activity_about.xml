@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".AboutActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/image_logo"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            android:layout_marginTop="32dp"
+            android:layout_centerHorizontal="true"
+            android:src="@mipmap/ic_playstore"/>
+
+        <TextView
+            android:id="@+id/text_app_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            android:layout_below="@id/image_logo"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="8dp"
+            android:textSize="20dp"
+            android:fontFamily="@font/seoulhangangeb"/>
+
+        <TextView
+            android:id="@+id/text_developer_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="개발자 : BonusTrack02"
+            android:layout_below="@id/text_app_name"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/seoulhangangm"/>
+
+        <Button
+            android:id="@+id/button_open_source"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_developer_name"
+            android:layout_marginTop="24dp"
+            android:text="오픈소스 라이선스"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="@font/seoulhangangl"/>
+    </RelativeLayout>
+
+</layout>

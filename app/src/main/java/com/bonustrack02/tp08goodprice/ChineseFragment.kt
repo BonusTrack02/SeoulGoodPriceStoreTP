@@ -10,6 +10,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.OnScrollListener
 import com.bonustrack02.tp08goodprice.databinding.FragmentChineseBinding
+import com.bonustrack02.tp08goodprice.network.RetrofitHelper
+import com.bonustrack02.tp08goodprice.network.RetrofitResponse
+import com.bonustrack02.tp08goodprice.network.RetrofitService
+import com.bonustrack02.tp08goodprice.network.Shop
 import com.google.android.material.snackbar.Snackbar
 import retrofit2.Call
 import retrofit2.Callback
@@ -56,15 +60,16 @@ class ChineseFragment: Fragment() {
     }
 
     private fun getStoreListUsingRetrofit(startIndex: Int, endIndex: Int) {
-        val retrofitService = RetrofitHelper.getInstance().create(RetrofitService::class.java)
+        val retrofitService = RetrofitHelper
+            .getInstance("http://openapi.seoul.go.kr:8088")
+            .create(RetrofitService::class.java)
+
         val call = retrofitService.getStoreJson(apiKey, startIndex, endIndex, "002")
         call.enqueue(object : Callback<RetrofitResponse> {
             override fun onResponse(
                 call: Call<RetrofitResponse>,
                 response: Response<RetrofitResponse>
             ) {
-                Log.d("retrofit warning", "${response.body()}")
-                Log.d("retrofit result", "${response.raw()}")
                 response.body()!!.responseItem.ShopList.forEach {
                     if (items.contains(it)) return@forEach
                     items.add(it)

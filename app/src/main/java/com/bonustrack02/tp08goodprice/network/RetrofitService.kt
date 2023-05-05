@@ -5,6 +5,7 @@ import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface RetrofitService {
     @GET("/{key}/json/ListPriceModelStoreService/{startIndex}/{endIndex}/{inDutyCode}")
@@ -17,5 +18,7 @@ interface RetrofitService {
 
     @GET("/v2/local/search/keyword.json")
     @Headers("Authorization: KakaoAK ${BuildConfig.KAKAORESTAPIKEY}")
-    fun getLocationByKakaoKeyword(): Call<ResponseKeyword>
+    fun getLocationByKakaoKeyword(
+        @Query("query") query: String,
+    ): Call<ResponseKeyword>
 }

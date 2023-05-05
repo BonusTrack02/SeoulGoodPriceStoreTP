@@ -6,13 +6,18 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="8dp">
+        android:layout_height="match_parent">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"/>
 
         <com.android.volley.toolbox.NetworkImageView
             android:id="@+id/detail_img"
             android:layout_width="180dp"
             android:layout_height="180dp"
+            android:layout_below="@id/toolbar"
             android:src="@mipmap/ic_playstore"/>
 
         <TextView
@@ -23,6 +28,7 @@
             android:textSize="24dp"
             android:layout_marginTop="16dp"
             android:layout_marginLeft="8dp"
+            android:layout_below="@id/toolbar"
             android:layout_toRightOf="@id/detail_img"
             android:fontFamily="@font/seoulhangangm"/>
 

@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import com.bonustrack02.tp08goodprice.databinding.RecyclerItemBinding
+import com.bonustrack02.tp08goodprice.network.Shop
 
 class RecyclerAdapter(val context: Context, var items: MutableList<Shop>): Adapter<RecyclerAdapter.ViewHolder>() {
     inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
@@ -41,8 +42,6 @@ class RecyclerAdapter(val context: Context, var items: MutableList<Shop>): Adapt
         holder.binding.recyclerTextTitle.text = item.shopName
         holder.binding.recyclerTextAddr.text = item.shopAddress
         holder.binding.recyclerTextTel.text = item.shopNumber
-
-        Log.d("Tag", item.shopName)
     }
 
     override fun getItemCount(): Int = items.size
