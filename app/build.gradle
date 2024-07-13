@@ -4,20 +4,21 @@ plugins {
     id 'kotlin-android'
     id 'kotlinx-serialization'
     id 'com.google.android.gms.oss-licenses-plugin'
+    id 'com.google.devtools.ksp'
 }
 
 Properties properties = new Properties()
 properties.load(project.rootProject.file('local.properties').newDataInputStream())
 
 android {
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.bonustrack02.tp08goodprice"
         minSdk 23
-        targetSdk 33
-        versionCode 22
-        versionName "1.5.1"
+        targetSdk 34
+        versionCode 23
+        versionName "1.5.2"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
@@ -35,11 +36,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '17'
     }
 
     buildFeatures {
@@ -58,25 +59,34 @@ dependencies {
 //    implementation "androidx.navigation:navigation-dynamic-features-fragment:$nav_version"
 //    androidTestImplementation "androidx.navigation:navigation-testing:$nav_version"
 
-    implementation 'androidx.core:core-ktx:1.10.1'
-    implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'com.google.android.material:material:1.9.0'
+    implementation 'androidx.core:core-ktx:1.13.1'
+    implementation 'androidx.appcompat:appcompat:1.7.0'
+    implementation 'com.google.android.material:material:1.12.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'com.android.volley:volley:1.2.1'
     implementation 'com.google.android.gms:play-services-ads-identifier:18.0.1'
-    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-    implementation 'com.squareup.okhttp3:logging-interceptor:4.11.0'
-    implementation 'com.google.code.gson:gson:2.10.1'
-    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
-    implementation 'com.squareup.retrofit2:converter-scalars:2.9.0'
-    implementation 'org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1'
+    implementation 'com.squareup.retrofit2:retrofit:2.11.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.12.0'
+    implementation 'com.google.code.gson:gson:2.11.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.11.0'
+    implementation 'com.squareup.retrofit2:converter-scalars:2.11.0'
+    implementation 'org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3'
     implementation 'com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:1.0.0'
     testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    androidTestImplementation 'androidx.test.ext:junit:1.2.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
+
+    def coroutines_version = '1.7.3'
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
+
+    def glide_version = '4.16.0'
+    ksp "com.github.bumptech.glide:ksp:$glide_version"
+    implementation "com.github.bumptech.glide:glide:$glide_version"
+    ksp "com.github.bumptech.glide:compiler:$glide_version"
 
     implementation 'com.kakao.sdk:v2-share:2.13.0'
     implementation files('libs/libDaumMapAndroid.jar')
-    implementation 'com.kakao.adfit:ads-base:3.13.6'
-    implementation 'com.google.android.gms:play-services-oss-licenses:17.0.1' // for notice open source license
+    implementation 'com.kakao.adfit:ads-base:3.16.0'
+    implementation 'com.google.android.gms:play-services-oss-licenses:17.1.0' // for notice open source license
 }
