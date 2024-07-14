@@ -1,7 +1,6 @@
 package com.bonustrack02.tp08goodprice.network
 
 import com.bonustrack02.tp08goodprice.BuildConfig
-import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.GET

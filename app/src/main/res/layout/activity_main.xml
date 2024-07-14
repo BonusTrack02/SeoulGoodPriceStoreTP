@@ -28,9 +28,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:menu="@menu/bottom_navigation"
+            app:itemTextAppearanceActive="@style/BottomNavigationActiveTextStyle"
+            app:itemTextAppearanceInactive="@style/BottomNavigationInactiveTextStyle"
             app:itemIconSize="24dp"
-            app:itemIconTint="@color/bottom_navigation_item"
-            app:itemTextColor="@color/bottom_navigation_item"
             app:labelVisibilityMode="labeled"/>
 
     </LinearLayout>

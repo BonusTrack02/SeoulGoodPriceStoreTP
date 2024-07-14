@@ -24,7 +24,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="8dp"
             android:textSize="20dp"
-            android:fontFamily="@font/seoulhangangeb"/>
+            android:fontFamily="@font/seoul_namsan_eb"/>
 
         <TextView
             android:id="@+id/text_developer_name"
@@ -34,7 +34,8 @@
             android:layout_below="@id/text_app_name"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="8dp"
-            android:fontFamily="@font/seoulhangangm"/>
+            android:textSize="16dp"
+            android:fontFamily="@font/seoul_namsan_m"/>
 
         <Button
             android:id="@+id/button_open_source"
@@ -42,9 +43,10 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/text_developer_name"
             android:layout_marginTop="24dp"
+            android:textSize="16dp"
             android:text="오픈소스 라이선스"
             android:layout_centerHorizontal="true"
-            android:fontFamily="@font/seoulhangangl"/>
+            android:fontFamily="@font/seoul_namsan_m"/>
     </RelativeLayout>
 
 </layout>

@@ -19,6 +19,7 @@ import com.bonustrack02.tp08goodprice.databinding.ActivityDetailBinding
 import com.bonustrack02.tp08goodprice.network.ResponseKeyword
 import com.bonustrack02.tp08goodprice.network.RetrofitHelper
 import com.bonustrack02.tp08goodprice.network.RetrofitService
+import com.bumptech.glide.Glide
 import com.kakao.adfit.ads.AdListener
 import com.kakao.sdk.share.ShareClient
 import com.kakao.sdk.template.model.Content
@@ -36,10 +37,10 @@ import java.util.*
 class DetailActivity : AppCompatActivity() {
     private val binding: ActivityDetailBinding by lazy { ActivityDetailBinding.inflate(layoutInflater) }
     private val clientId = BuildConfig.SMALLBANNERCLIENTID
-    var mapView: MapView? = null
-    var point: MapPoint? = null
-    var latitude = 0.0
-    var longitude = 0.0
+    private var mapView: MapView? = null
+    private var point: MapPoint? = null
+    private var latitude = 0.0
+    private var longitude = 0.0
     private val retrofit = RetrofitHelper.getInstance("https://dapi.kakao.com")
     private val retrofitService = retrofit.create(RetrofitService::class.java)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,35 +57,35 @@ class DetailActivity : AppCompatActivity() {
             requestPermissions(permissions, 14)
         }
 
-        binding.adview.setClientId(clientId)
-        binding.adview.setAdListener(object : AdListener {
+        binding.adViewKakao.setClientId(clientId)
+        binding.adViewKakao.setAdListener(object : AdListener {
             override fun onAdLoaded() {}
             override fun onAdFailed(i: Int) {
                 Log.e("AdView", "error : $i")
             }
             override fun onAdClicked() {}
         })
-        binding.adview.loadAd()
+        binding.adViewKakao.loadAd()
 
         val clipboardManager = getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
         mapView = MapView(this)
         binding.containerMap.addView(mapView)
         val intent = intent
         val img = intent.getStringExtra("img")
-        val imageLoader = ImageLoaderSingleTon.getImageLoader(this)
-        binding.detailImg.setImageUrl(img, imageLoader)
+        Glide.with(this).load(img).into(binding.imgDetail)
         val name = intent.getStringExtra("name")
-        binding.detailTextName.text = name
-        val addr = intent.getStringExtra("addr")
-        binding.detailTextAddr.text = addr
-        binding.detailTextAddr.setOnLongClickListener {
-            val clipData = ClipData.newPlainText("주소", binding.detailTextAddr.text.toString())
+        binding.txtDetailShopName.text = name
+        val address = intent.getStringExtra("addr")
+        setPoint(address ?: "")
+        binding.txtDetailShopAddr.text = address
+        binding.txtDetailShopAddr.setOnLongClickListener {
+            val clipData = ClipData.newPlainText("주소", binding.txtDetailShopAddr.text.toString())
             clipboardManager.setPrimaryClip(clipData)
             Toast.makeText(this@DetailActivity, R.string.copy_address, Toast.LENGTH_SHORT).show()
             true
         }
 
-        binding.detailBtnMap.setOnClickListener { view: View? ->
+        binding.btnDetailKakaoMap.setOnClickListener { view: View? ->
             val uri = Uri.parse("kakaomap://look?p=$latitude,$longitude")
             val mapIntent = Intent(Intent.ACTION_VIEW)
             mapIntent.data = uri
@@ -98,32 +99,31 @@ class DetailActivity : AppCompatActivity() {
         var phone = intent.getStringExtra("phone")
         phone = phone!!.replace(" ", "")
         if (
-            phone.contains("02-")
-            || phone.contains("0507-")
-            || phone.contains("070-")
+            phone.startsWith("02-")
+            || phone.startsWith("0507-")
+            || phone.startsWith("070-")
         ) {
-            binding.detailBtnPhone.text = phone
+            binding.btnDetailShopPhoneNumber.text = phone
         } else if (phone.isEmpty()) {
-            binding.detailBtnPhone.visibility = INVISIBLE
+            binding.btnDetailShopPhoneNumber.visibility = INVISIBLE
         } else {
-            binding.detailBtnPhone.text = "02-$phone"
+            binding.btnDetailShopPhoneNumber.text = "02-$phone"
         }
 
-        binding.detailBtnPhone.setOnClickListener {
+        binding.btnDetailShopPhoneNumber.setOnClickListener {
             val callIntent = Intent(Intent.ACTION_DIAL)
-            val uri = Uri.parse("tel:" + binding.detailBtnPhone.text.toString())
+            val uri = Uri.parse("tel:" + binding.btnDetailShopPhoneNumber.text.toString())
             callIntent.data = uri
             startActivity(callIntent)
         }
 
         val pride = intent.getStringExtra("pride")
-        binding.detailTextPride.text = pride
-        setPoint()
+        binding.txtDetailShopPride.text = if (pride.isNullOrEmpty() || pride == "null") "" else pride
         mapView!!.setMapCenterPointAndZoomLevel(point, 3, true)
         mapView!!.zoomIn(true)
         mapView!!.zoomOut(true)
         val marker = MapPOIItem()
-        marker.itemName = binding.detailTextName.text.toString()
+        marker.itemName = binding.txtDetailShopName.text.toString()
         marker.tag = 0
         marker.mapPoint = point
         marker.markerType = MapPOIItem.MarkerType.RedPin
@@ -133,7 +133,7 @@ class DetailActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menu_share -> {
-                val call = retrofitService.getLocationByKakaoKeyword(binding.detailTextName.text.toString())
+                val call = retrofitService.getLocationByKakaoKeyword(binding.txtDetailShopName.text.toString())
                 if (ShareClient.instance.isKakaoTalkSharingAvailable(this)) { // 카카오톡 쉐어링이 가능
                     call.enqueue(object : Callback<ResponseKeyword> {
                         override fun onResponse(
@@ -199,17 +199,17 @@ class DetailActivity : AppCompatActivity() {
     }
     override fun onResume() {
         super.onResume()
-        binding.adview.resume()
+        binding.adViewKakao.resume()
     }
 
     override fun onPause() {
         super.onPause()
-        binding.adview.pause()
+        binding.adViewKakao.pause()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        binding.adview.destroy()
+        binding.adViewKakao.destroy()
     }
 
     override fun onRequestPermissionsResult(
@@ -227,8 +227,7 @@ class DetailActivity : AppCompatActivity() {
         }
     }
 
-    fun setPoint() {
-        val address = binding.detailTextAddr.text.toString()
+    private fun setPoint(address: String) {
         val geocoder = Geocoder(this, Locale.KOREA)
         try {
             val addressList = geocoder.getFromLocationName(address, 3)
