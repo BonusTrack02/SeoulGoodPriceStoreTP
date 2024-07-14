@@ -12,7 +12,7 @@ data class RetrofitResponse(
 data class ResponseItem(
     @SerialName("list_total_count") val totalCount: Int,
     @SerialName("RESULT") val result: Result,
-    @SerialName("row") val ShopList: MutableList<Shop>
+    @SerialName("row") val shopList: MutableList<Shop>
 )
 
 @Serializable

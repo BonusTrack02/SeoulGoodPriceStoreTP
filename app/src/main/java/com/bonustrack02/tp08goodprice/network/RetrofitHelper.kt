@@ -10,16 +10,17 @@ import retrofit2.converter.scalars.ScalarsConverterFactory
 
 class RetrofitHelper {
     companion object {
+        private val json = Json { ignoreUnknownKeys = true }
+
         fun getInstance(baseUrl: String) : Retrofit {
             val clientBuilder = OkHttpClient.Builder()
             val interceptor = HttpLoggingInterceptor()
             interceptor.level = HttpLoggingInterceptor.Level.BODY
             clientBuilder.addInterceptor(interceptor)
-            val builder = Retrofit.Builder()
-            builder.apply {
+            val builder = Retrofit.Builder().apply {
                 baseUrl(baseUrl)
                 addConverterFactory(ScalarsConverterFactory.create())
-                addConverterFactory(Json {ignoreUnknownKeys = true}.asConverterFactory("application/json".toMediaTypeOrNull()!!))
+                addConverterFactory(json.asConverterFactory("application/json".toMediaTypeOrNull()!!))
                 client(clientBuilder.build())
             }
             return builder.build()

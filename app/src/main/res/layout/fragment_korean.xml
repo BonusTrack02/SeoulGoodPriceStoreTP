@@ -5,58 +5,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-<!--        <com.google.android.material.appbar.AppBarLayout-->
-<!--            android:id="@+id/appbar"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:backgroundTint="?colorSecondaryContainer">-->
-
-<!--            <com.google.android.material.appbar.MaterialToolbar-->
-<!--                android:id="@+id/toolbar"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="?attr/actionBarSize"-->
-<!--                app:titleTextColor="?colorOnSecondaryContainer"-->
-<!--                android:theme="@style/ToolbarStyle">-->
-
-<!--            </com.google.android.material.appbar.MaterialToolbar>-->
-
-<!--            <RelativeLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content">-->
-
-<!--                <TextView-->
-<!--                    android:id="@+id/text_region"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_centerVertical="true"-->
-<!--                    android:layout_marginLeft="8dp"-->
-<!--                    android:text="지역 선택"-->
-<!--                    android:textColor="?colorOnSecondaryContainer"/>-->
-
-<!--                <androidx.appcompat.widget.AppCompatSpinner-->
-<!--                    android:id="@+id/spinner"-->
-<!--                    android:entries="@array/region"-->
-<!--                    android:layout_width="100dp"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_margin="8dp"-->
-<!--                    android:layout_marginLeft="8dp"-->
-<!--                    android:layout_toRightOf="@id/text_region"-->
-<!--                    android:spinnerMode="dropdown"-->
-<!--                    android:background="@drawable/background_spinner"/>-->
-
-<!--            </RelativeLayout>-->
-
-
-<!--        </com.google.android.material.appbar.AppBarLayout>-->
-
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:orientation="vertical"
-            android:padding="16dp"/>
+            android:padding="8dp"/>
 
         <ProgressBar
             android:id="@+id/progressbar"
