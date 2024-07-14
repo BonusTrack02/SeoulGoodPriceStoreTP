@@ -12,113 +12,113 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/img_detail"
             android:layout_width="180dp"
             android:layout_height="180dp"
-            app:layout_constraintTop_toBottomOf="@id/toolbar"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="16dp"
             android:layout_marginStart="16dp"
-            android:src="@mipmap/ic_playstore"/>
+            android:layout_marginTop="16dp"
+            android:src="@mipmap/ic_playstore"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
         <TextView
             android:id="@+id/txt_detail_shop_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:fontFamily="@font/seoul_namsan_eb"
+            android:maxLines="1"
             android:text="가게 이름"
             android:textSize="24dp"
-            app:layout_constraintTop_toTopOf="@id/img_detail"
-            android:layout_marginStart="16dp"
-            android:maxLines="1"
             app:layout_constraintStart_toEndOf="@id/img_detail"
-            android:fontFamily="@font/seoul_namsan_eb"/>
+            app:layout_constraintTop_toTopOf="@id/img_detail" />
 
         <TextView
             android:id="@+id/txt_detail_shop_addr"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="주소"
-            android:textSize="16dp"
             android:layout_marginTop="16dp"
-            app:layout_constraintTop_toBottomOf="@id/txt_detail_shop_name"
-            app:layout_constraintStart_toStartOf="@id/txt_detail_shop_name"
+            android:layout_marginEnd="16dp"
+            android:ellipsize="marquee"
             android:fontFamily="@font/seoul_namsan_m"
             android:maxLines="1"
-            android:ellipsize="marquee"
+            android:text="주소"
+            android:textSize="16dp"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="16dp"/>
+            app:layout_constraintStart_toStartOf="@id/txt_detail_shop_name"
+            app:layout_constraintTop_toBottomOf="@id/txt_detail_shop_name" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_detail_kakao_map"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/seoul_namsan_m"
-            app:layout_constraintTop_toBottomOf="@id/txt_detail_shop_addr"
-            app:layout_constraintStart_toEndOf="@id/img_detail"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:textSize="16dp"
-            app:iconTint="@android:color/white"
             android:text="카카오맵으로 이동"
-            app:icon="@drawable/ic_baseline_map_24"/>
+            android:textSize="16dp"
+            app:icon="@drawable/ic_baseline_map_24"
+            app:iconTint="@android:color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/img_detail"
+            app:layout_constraintTop_toBottomOf="@id/txt_detail_shop_addr" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_detail_shop_phone_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@id/btn_detail_kakao_map"
             android:fontFamily="@font/seoul_namsan_m"
-            app:layout_constraintStart_toEndOf="@id/img_detail"
-            app:layout_constraintEnd_toEndOf="parent"
             android:text="전화번호"
             android:textSize="16dp"
-            app:icon="@drawable/ic_baseline_phone_24"/>
+            app:icon="@drawable/ic_baseline_phone_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/img_detail"
+            app:layout_constraintTop_toBottomOf="@id/btn_detail_kakao_map" />
 
         <TextView
             android:id="@+id/txt_detail_title_shop_pride"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintTop_toBottomOf="@id/img_detail"
-            android:text="자랑거리"
-            android:fontFamily="@font/seoul_namsan_b"
             android:layout_marginTop="16dp"
-            android:textSize="24dp"/>
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/seoul_namsan_b"
+            android:text="자랑거리"
+            android:textSize="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/img_detail" />
 
         <TextView
             android:id="@+id/txt_detail_shop_pride"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintTop_toBottomOf="@id/txt_detail_title_shop_pride"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/container_map"
             android:layout_margin="8dp"
             android:fontFamily="@font/seoul_namsan_m"
-            android:textSize="18dp" />
+            android:textSize="18dp"
+            app:layout_constraintBottom_toTopOf="@id/container_map"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txt_detail_title_shop_pride" />
 
         <RelativeLayout
             android:id="@+id/container_map"
             android:layout_width="match_parent"
             android:layout_height="180dp"
-            app:layout_constraintBottom_toTopOf="@id/ad_view_kakao"/>
+            app:layout_constraintBottom_toTopOf="@id/ad_view_kakao" />
 
         <com.kakao.adfit.ads.ba.BannerAdView
             android:id="@+id/ad_view_kakao"
             android:layout_width="match_parent"
             android:layout_height="100dp"
+            android:layout_below="@id/container_map"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_below="@id/container_map"/>
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
