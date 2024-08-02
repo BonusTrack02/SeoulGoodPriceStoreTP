@@ -36,7 +36,7 @@ import java.util.*
 
 class DetailActivity : AppCompatActivity() {
     private val binding: ActivityDetailBinding by lazy { ActivityDetailBinding.inflate(layoutInflater) }
-    private val clientId = BuildConfig.SMALLBANNERCLIENTID
+    private val clientId = BuildConfig.SMALL_BANNER_CLIENT_ID
     private var mapView: MapView? = null
     private var point: MapPoint? = null
     private var latitude = 0.0

@@ -17,15 +17,15 @@ android {
         applicationId "com.bonustrack02.tp08goodprice"
         minSdk 23
         targetSdk 34
-        versionCode 24
-        versionName "1.6.0"
+        versionCode 25
+        versionName "1.6.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField "String", "APIKEYSEOUL", properties['api_key_seoul']
-        buildConfigField "String", "SMALLBANNERCLIENTID", properties['small_banner_client_id']
-        buildConfigField "String", "KAKAOAPPKEY", properties['kakao_app_key']
-        buildConfigField "String", "KAKAORESTAPIKEY", properties['kakao_rest_api_key']
+        buildConfigField "String", "API_KEY_SEOUL", properties['api_key_seoul']
+        buildConfigField "String", "SMALL_BANNER_CLIENT_ID", properties['small_banner_client_id']
+        buildConfigField "String", "KAKAO_APP_KEY", properties['kakao_app_key']
+        buildConfigField "String", "KAKAO_REST_API_KEY", properties['kakao_rest_api_key']
     }
 
     buildTypes {

@@ -19,7 +19,7 @@ interface RetrofitService {
     ): Response<RetrofitResponse>
 
     @GET("/v2/local/search/keyword.json")
-    @Headers("Authorization: KakaoAK ${BuildConfig.KAKAORESTAPIKEY}")
+    @Headers("Authorization: KakaoAK ${BuildConfig.KAKAO_REST_API_KEY}")
     fun getLocationByKakaoKeyword(
         @Query("query") query: String,
     ): Call<ResponseKeyword>

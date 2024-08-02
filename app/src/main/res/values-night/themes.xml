@@ -1,5 +1,4 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.Material3.Dark.NoActionBar">
         <item name="colorPrimary">@color/md_theme_primary</item>
         <item name="colorOnPrimary">@color/md_theme_onPrimary</item>
@@ -48,4 +47,15 @@
         <item name="colorSurfaceContainerHigh">@color/md_theme_surfaceContainerHigh</item>
         <item name="colorSurfaceContainerHighest">@color/md_theme_surfaceContainerHighest</item>
     </style>
+
+    <style name="BottomNavigationActiveTextStyle" parent="TextAppearance.AppCompat">
+        <item name="android:textStyle">bold</item>
+        <item name="fontFamily">@font/seoul_namsan_b</item>
+    </style>
+
+    <style name="BottomNavigationInactiveTextStyle" parent="TextAppearance.AppCompat">
+        <item name="android:textStyle">normal</item>
+        <item name="fontFamily">@font/seoul_namsan_m</item>
+    </style>
+
 </resources>
