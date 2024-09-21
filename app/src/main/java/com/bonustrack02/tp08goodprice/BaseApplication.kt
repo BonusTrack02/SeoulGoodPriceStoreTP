@@ -4,7 +4,7 @@ import android.app.Application
 import com.kakao.sdk.common.KakaoSdk
 
 class BaseApplication : Application() {
-    private val kakaoAppKey = BuildConfig.KAKAOAPPKEY
+    private val kakaoAppKey = BuildConfig.KAKAO_APP_KEY
     override fun onCreate() {
         super.onCreate()
 

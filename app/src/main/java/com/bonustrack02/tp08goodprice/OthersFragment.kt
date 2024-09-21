@@ -27,7 +27,7 @@ class OthersFragment : Fragment() {
     }
     private val shopList = mutableListOf<Shop>()
     private val shopItemAdapter = ShopItemAdapter()
-    private val apiKey = BuildConfig.APIKEYSEOUL
+    private val apiKey = BuildConfig.API_KEY_SEOUL
     private var startIndex = 1
     private var endIndex = 30
     private var totalCount = 0
