@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.fragment.app.Fragment
@@ -18,11 +19,33 @@ class MainActivity: AppCompatActivity() {
     private val binding: ActivityMainBinding by lazy { ActivityMainBinding.inflate(layoutInflater) }
     private val fragmentManager: FragmentManager by lazy { supportFragmentManager }
     private val fragments = mutableListOf<Fragment?>()
+    private var wasPressed = false
+    private var lastTime = 0L
+    private val onBackInvokedCallback by lazy {
+        object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (!wasPressed) {
+                    Toast.makeText(this@MainActivity, "한 번 더 누르면 종료됩니다", Toast.LENGTH_SHORT).show()
+                    wasPressed = true
+                    lastTime = Date().time
+                } else {
+                    var now = Date().time
+                    if (now - lastTime > 3000) wasPressed = false
+                    else {
+                        finishAffinity()
+                        exitProcess(0)
+                    }
+                }
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+        onBackPressedDispatcher.addCallback(this, onBackInvokedCallback)
 
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
@@ -83,22 +106,5 @@ class MainActivity: AppCompatActivity() {
         }
 
         return super.onOptionsItemSelected(item)
-    }
-
-    var wasPressed = false
-    var lastTime = 0L
-    override fun onBackPressed() {
-        if (!wasPressed) {
-            Toast.makeText(this, "한 번 더 누르면 종료됩니다", Toast.LENGTH_SHORT).show()
-            wasPressed = true
-            lastTime = Date().time
-        } else {
-            var now = Date().time
-            if (now - lastTime > 3000) wasPressed = false
-            else {
-                finishAffinity()
-                exitProcess(0)
-            }
-        }
     }
 }
