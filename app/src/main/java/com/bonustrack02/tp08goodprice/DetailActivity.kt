@@ -37,7 +37,7 @@ import java.util.*
 class DetailActivity : AppCompatActivity() {
     private val binding: ActivityDetailBinding by lazy { ActivityDetailBinding.inflate(layoutInflater) }
     private val clientId = BuildConfig.SMALL_BANNER_CLIENT_ID
-    private var mapView: MapView? = null
+    private val mapView by lazy { MapView(this) }
     private var point: MapPoint? = null
     private var latitude = 0.0
     private var longitude = 0.0
@@ -68,7 +68,6 @@ class DetailActivity : AppCompatActivity() {
         binding.adViewKakao.loadAd()
 
         val clipboardManager = getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
-        mapView = MapView(this)
         binding.containerMap.addView(mapView)
         val intent = intent
         val img = intent.getStringExtra("img")
@@ -112,21 +111,22 @@ class DetailActivity : AppCompatActivity() {
 
         binding.btnDetailShopPhoneNumber.setOnClickListener {
             val callIntent = Intent(Intent.ACTION_DIAL)
-            val uri = Uri.parse("tel:" + binding.btnDetailShopPhoneNumber.text.toString())
+            val uri = Uri.parse("tel:${binding.btnDetailShopPhoneNumber.text}")
             callIntent.data = uri
             startActivity(callIntent)
         }
 
         val pride = intent.getStringExtra("pride")
         binding.txtDetailShopPride.text = if (pride.isNullOrEmpty() || pride == "null") "" else pride
-        mapView!!.setMapCenterPointAndZoomLevel(point, 3, true)
-        mapView!!.zoomIn(true)
-        mapView!!.zoomOut(true)
-        val marker = MapPOIItem()
-        marker.itemName = binding.txtDetailShopName.text.toString()
-        marker.tag = 0
-        marker.mapPoint = point
-        marker.markerType = MapPOIItem.MarkerType.RedPin
+        mapView.setMapCenterPointAndZoomLevel(point, 3, true)
+        mapView.zoomIn(true)
+        mapView.zoomOut(true)
+        val marker = MapPOIItem().apply {
+            itemName = binding.txtDetailShopName.text.toString()
+            tag = 0
+            mapPoint = point
+            markerType = MapPOIItem.MarkerType.RedPin
+        }
         mapView!!.addPOIItem(marker)
     }
 
