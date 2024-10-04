@@ -5,8 +5,11 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.location.Address
 import android.location.Geocoder
+import android.location.Geocoder.GeocodeListener
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -14,6 +17,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.View.INVISIBLE
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.bonustrack02.tp08goodprice.databinding.ActivityDetailBinding
 import com.bonustrack02.tp08goodprice.network.ResponseKeyword
@@ -67,13 +71,16 @@ class DetailActivity : AppCompatActivity() {
         })
         binding.adViewKakao.loadAd()
 
-        val clipboardManager = getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
         binding.containerMap.addView(mapView)
-        val intent = intent
+
+        val clipboardManager = getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
+
         val img = intent.getStringExtra("img")
         Glide.with(this).load(img).into(binding.imgDetail)
+
         val name = intent.getStringExtra("name")
         binding.txtDetailShopName.text = name
+
         val address = intent.getStringExtra("addr")
         setPoint(address ?: "")
         binding.txtDetailShopAddr.text = address
@@ -118,16 +125,6 @@ class DetailActivity : AppCompatActivity() {
 
         val pride = intent.getStringExtra("pride")
         binding.txtDetailShopPride.text = if (pride.isNullOrEmpty() || pride == "null") "" else pride
-        mapView.setMapCenterPointAndZoomLevel(point, 3, true)
-        mapView.zoomIn(true)
-        mapView.zoomOut(true)
-        val marker = MapPOIItem().apply {
-            itemName = binding.txtDetailShopName.text.toString()
-            tag = 0
-            mapPoint = point
-            markerType = MapPOIItem.MarkerType.RedPin
-        }
-        mapView!!.addPOIItem(marker)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -168,7 +165,7 @@ class DetailActivity : AppCompatActivity() {
                             } catch (e: Exception) {
                                 Toast.makeText(
                                     this@DetailActivity,
-                                    "카카오맵에서 장소를 찾을 수 없습니다.",
+                                    R.string.map_cannot_find_place,
                                     Toast.LENGTH_SHORT
                                 ).show()
                             }
@@ -181,7 +178,7 @@ class DetailActivity : AppCompatActivity() {
                     })
 
                 } else { // 불가능
-                    Toast.makeText(this, "카카오톡 공유를 사용할 수 없습니다.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, R.string.toast_kakao_talk_share_unavailable, Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -230,16 +227,23 @@ class DetailActivity : AppCompatActivity() {
     private fun setPoint(address: String) {
         val geocoder = Geocoder(this, Locale.KOREA)
         try {
-            val addressList = geocoder.getFromLocationName(address, 3)
-            val buffer = StringBuffer()
-            for (addr in addressList!!) {
-                val lat = addr.latitude
-                val lng = addr.longitude
-                buffer.append("$lat, $lng\n")
+            geocoder.getFromLocationName(address, 3) { addressList ->
+                latitude = addressList[0].latitude
+                longitude = addressList[0].longitude
+                point = MapPoint.mapPointWithGeoCoord(latitude, longitude)
+
+                mapView.setMapCenterPointAndZoomLevel(point, 3, true)
+                mapView.zoomIn(true)
+                mapView.zoomOut(true)
+                val marker = MapPOIItem().apply {
+                    itemName = binding.txtDetailShopName.text.toString()
+                    tag = 0
+                    mapPoint = point
+                    markerType = MapPOIItem.MarkerType.RedPin
+                }
+                mapView.addPOIItem(marker)
             }
-            latitude = addressList[0].latitude
-            longitude = addressList[0].longitude
-            point = MapPoint.mapPointWithGeoCoord(latitude, longitude)
+
         } catch (e: IOException) {
             e.printStackTrace()
         }
