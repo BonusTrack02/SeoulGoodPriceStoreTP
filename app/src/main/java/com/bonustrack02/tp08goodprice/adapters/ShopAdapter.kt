@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import com.bonustrack02.tp08goodprice.DetailActivity
+import com.bonustrack02.tp08goodprice.activities.DetailActivity
 import com.bonustrack02.tp08goodprice.R
 import com.bonustrack02.tp08goodprice.databinding.RecyclerShopItemBinding
 import com.bonustrack02.tp08goodprice.network.Shop
